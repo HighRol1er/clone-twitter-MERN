@@ -45,8 +45,7 @@ export const followOrUnfollowUser = async (req, res) => {
       await User.findByIdAndUpdate(id, { $pull: { followers: req.user._id } }); //req.user._id : 현재 로그인한 사용자의 id
 			await User.findByIdAndUpdate(req.user._id, { $pull: { following: id } });
 
-      // TODO: retrun the id of the user as a response
-			res.status(200).json({ message: "User unfollowed successfully" });
+			res.status(200).json({ message: "User unfollowed successfully", userId: userToFollowOrUnFollow._id });
     } else {
       // follow
       await User.findByIdAndUpdate(id, { $push: { followers: req.user._id }});
@@ -60,8 +59,7 @@ export const followOrUnfollowUser = async (req, res) => {
       });
 
       await newNotification.save();
-      // TODO: retrun the id of the user as a response
-      res.status(200).json({ message: "User followed successfully" });
+      res.status(200).json({ message: "User followed successfully", userId: userToFollowOrUnFollow._id });
     }
   } catch (error) {
     console.log("Error in followUnfollowUser", error.message);
