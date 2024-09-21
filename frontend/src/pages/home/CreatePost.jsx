@@ -98,7 +98,7 @@ const CreatePost = () => {
 					</button>
 				</div>
 				{isError && <div className="text-red-500">
-					{"Nothing to post"}	
+					{error.message || "Nothing to post"}	
 				</div>}
 			</form>
 		</div>
